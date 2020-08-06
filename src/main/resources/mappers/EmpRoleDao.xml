@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.EmpRoleDao">
+    <resultMap id="erMap" type="EmpRole">
+        <result column="emp_id" property="empId"></result>
+        <result column="role_id" property="roleId"></result>
+    </resultMap>
+
+    <insert id="insertEmpRole">
+        insert into emp_role (emp_id, role_id) values (#{empId},#{roleId})
+    </insert>
+
+    <delete id="deleteEmpRole">
+        delete from emp_role where emp_id = #{empId}
+    </delete>
+
+    <select id="selectByEmpId" resultMap="erMap">
+        select er.emp_id, er.role_id, e.username, r.role_name from emp_role er, employee e, role r
+        where er.role_id = r.role_id and er.emp_id = e.emp_id and er.emp_id = #{id}
+    </select>
+
+    <select id="selectAllEmpRole" resultMap="erMap">
+        select emp_id, role_id from emp_role
+    </select>
+
+    <update id="updateEmpRole">
+        update emp_role set role_id = #{roleId} where emp_id = #{empId}
+    </update>
+</mapper>

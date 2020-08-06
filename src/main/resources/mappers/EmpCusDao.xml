@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.EmpCusDao">
+    <resultMap id="ecMap" type="EmpCus">
+        <association property="emp" javaType="Emp">
+            <id property="empId" column="emp_id"></id>
+            <result property="username" column="username"></result>
+        </association>
+        <association property="cus" javaType="Cus">
+            <id property="cusId" column="cus_id"></id>
+            <result property="cusName" column="cus_name"></result>
+            <result property="address" column="address"></result>
+            <result property="contact" column="contact"></result>
+            <result property="tel" column="tel"></result>
+            <result property="email" column="email"></result>
+        </association>
+    </resultMap>
+
+    <select id="selectByEmpId" resultMap="ecMap">
+        select ec.emp_id,username, ec.cus_id, cus_name,address, contact,c.tel,c.email
+        from emp_cus ec,employee e, customer c
+        WHERE ec.emp_id = e.emp_id and ec.cus_id = c.cus_id and ec.emp_id = #{emp.empId}
+    </select>
+
+    <insert id="insertEmpCus">
+        insert into emp_cus (emp_id, cus_id) values (#{emp.empId},#{cus.cusId})
+    </insert>
+
+    <delete id="deleteEmpCus">
+        delete from emp_cus where emp_id = #{emp.empId} and cus_id = #{cus.cusId}
+    </delete>
+
+    <update id="update">
+        update emp_cus set emp_id = ${emp.empId}
+    </update>
+
+    <select id="selectAll" resultMap="ecMap">
+        select cus_id, cus_name, address,contact,tel, email from customer
+    </select>
+</mapper>

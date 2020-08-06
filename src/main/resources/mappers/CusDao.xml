@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.CusDao">
+    <resultMap id="cusMap" type="Cus">
+        <id property="cusId" column="cus_id"></id>
+        <result property="cusName" column="cus_name"></result>
+        <result property="address" column="address"></result>
+        <result property="contact" column="contact"></result>
+        <result property="tel" column="tel"></result>
+        <result property="email" column="email"></result>
+    </resultMap>
+
+    <sql id="baseSql">
+        cus_id, cus_name, address, contact, tel, email
+    </sql>
+
+    <select id="selectAllCus" resultMap="cusMap">
+        select <include refid="baseSql"></include> from customer
+    </select>
+
+    <select id="selectById" resultMap="cusMap">
+        select <include refid="baseSql"></include> from customer where cus_id = #{id}
+    </select>
+
+    <insert id="insertCus">
+        insert into customer (cus_name, address, contact, tel, email) values
+        (#{cusName},#{address},#{contact},#{tel},#{email})
+    </insert>
+
+    <delete id="deleteCus">
+        delete from customer where cus_id = #{id}
+    </delete>
+
+    <update id="updateCus">
+        update customer set cus_name = #{cusName}, address = #{address}, contact = #{contact}, tel = #{tel}, email =
+        #{email} where cus_id = #{cusId}
+    </update>
+
+    <!--    <select id="selectByEmpId" resultMap="cusMap">-->
+    <!--        select <include refid="baseSql"></include>  from customer where-->
+    <!--    </select>-->
+
+    <select id="selectByName" resultMap="cusMap">
+        select <include refid="baseSql"></include> from customer where cus_name = #{name}
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        select count(cus_id) from customer;
+    </select>
+
+    <select id="selectByPage" resultMap="cusMap">
+        select <include refid="baseSql"></include> from customer limit #{first},#{maxResult}
+    </select>
+</mapper>

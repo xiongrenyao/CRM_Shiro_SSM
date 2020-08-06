@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.RolePermDao">
+    <resultMap id="rolePerm" type="RolePerm">
+        <result property="roleId" column="role_id"></result>
+        <result property="permId" column="perm_id"></result>
+    </resultMap>
+
+
+    <select id="selectAllRolePerm" resultMap="rolePerm">
+        select role_id, perm_id from role_perm;
+    </select>
+
+    <select id="selectPermByRoleId" resultType="java.lang.String">
+        select perm_id,role_id from role_perm where role_id = #{roleId}
+    </select>
+
+    <insert id="insertRolePerm">
+        insert into role_perm (role_id,perm_id) values (#{roleId},#{permId})
+    </insert>
+
+    <delete id="deleteRolePerm">
+        delete from role_perm where role_id = #{roleId} and perm_id = #{permId}
+    </delete>
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="logImpl" value="LOG4J2"/>
+    </settings>
+    <typeAliases>
+        <typeAlias type="com.pojo.Perm" alias="Perm"/>
+        <typeAlias type="com.pojo.Role" alias="Role"/>
+        <typeAlias type="com.pojo.EmpRole" alias="EmpRole"/>
+        <typeAlias type="com.pojo.RolePerm" alias="RolePerm"/>
+        <typeAlias type="com.pojo.EmpCus" alias="EmpCus"/>
+        <typeAlias type="com.pojo.Customer" alias="Cus"/>
+        <typeAlias type="com.pojo.Employee" alias="Emp"/>
+        <typeAlias type="com.pojo.CusVisit" alias="CusVisit"/>
+    </typeAliases>
+</configuration>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.PermDao">
+    <resultMap id="permMap" type="Perm">
+        <id property="permId" column="perm_id"></id>
+        <result property="permName" column="perm_name"></result>
+        <result property="permUrl" column="perm_url"></result>
+        <result property="xxId" column="xx_id"></result>
+    </resultMap>
+
+    <insert id="insertPerm">
+        insert into perm (perm_name,perm_url) values (#{permName},#{permUrl})
+    </insert>
+
+    <delete id="deletePerm">
+        delete from perm where perm_id = #{permId}
+    </delete>
+
+    <update id="updatePerm">
+        update perm set perm_name = #{permName},perm_url = #{permUrl} where perm_id = #{permId}
+    </update>
+
+    <select id="selectAllPermByPage" resultMap="permMap">
+        select perm_id, perm_name,perm_url from perm limit #{startPage},#{pageSize}
+    </select>
+
+    <select id="selectById" resultMap="permMap">
+        select perm_id, perm_name,perm_url, xx_id from perm where perm_id = #{permId}
+    </select>
+
+    <select id="selectAllPemrByRoleId" resultType="String">
+        SELECT p.perm_url FROM perm p,role_perm rp
+        WHERE rp.perm_id = p.perm_id
+        and rp.role_id = #{roleId}
+    </select>
+
+    <select id="count" resultType="int">
+        select count(perm_id) from perm;
+    </select>
+
+    <select id="selectAllPerm" resultMap="permMap">
+        select perm_id, perm_name,perm_url from perm
+    </select>
+</mapper>
